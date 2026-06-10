@@ -1,9 +1,20 @@
-const fs = require("fs");
-const path = require("path");
-const PizZip = require("pizzip");
-const Docxtemplater = require("docxtemplater");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import PizZip from "pizzip";
+import Docxtemplater from "docxtemplater";
 
-const TEMPLATES_DIR = path.resolve(__dirname, "..", "templates");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+export const TEMPLATES_DIR = path.resolve(__dirname, "..", "templates");
+
+export class TemplateError extends Error {
+  constructor(code, message, cause) {
+    super(message);
+    this.name = "TemplateError";
+    this.code = code;
+    if (cause) this.cause = cause;
+  }
+}
 
 function resolveTemplatePath(templateName) {
   const safeName = path.basename(templateName, ".docx");
@@ -14,16 +25,7 @@ function resolveTemplatePath(templateName) {
   return resolved;
 }
 
-class TemplateError extends Error {
-  constructor(code, message, cause) {
-    super(message);
-    this.name = "TemplateError";
-    this.code = code;
-    if (cause) this.cause = cause;
-  }
-}
-
-function render(templateName, data) {
+export function render(templateName, data) {
   const templatePath = resolveTemplatePath(templateName);
 
   let content;
@@ -61,5 +63,3 @@ function buildRenderErrorMessage(err) {
     .join("; ");
   return details ? `Render failed: ${details}` : err.message;
 }
-
-module.exports = { render, TemplateError, TEMPLATES_DIR };

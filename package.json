@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Fill a DOCX template with values extracted from a JSON response.",
   "main": "src/generate.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "generate": "node src/generate.js"
   },

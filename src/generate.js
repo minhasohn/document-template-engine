@@ -1,7 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const { render, TemplateError } = require("./renderer");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { render, TemplateError } from "./renderer.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const MOCKS_PATH = path.join(PROJECT_ROOT, "mocks", "response.json");
 const OUTPUT_DIR = path.join(PROJECT_ROOT, "output");
