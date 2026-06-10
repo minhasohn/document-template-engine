@@ -50,7 +50,13 @@ function loadResponse() {
 
 function buildOutputPath(templateName) {
   const baseName = path.basename(templateName, ".docx");
-  return path.join(OUTPUT_DIR, `${baseName}-rendered.docx`);
+  const candidate = path.join(OUTPUT_DIR, `${baseName}-rendered.docx`);
+  if (!fs.existsSync(candidate)) return candidate;
+
+  for (let i = 1; ; i++) {
+    const next = path.join(OUTPUT_DIR, `${baseName}-rendered-${i}.docx`);
+    if (!fs.existsSync(next)) return next;
+  }
 }
 
 function main() {

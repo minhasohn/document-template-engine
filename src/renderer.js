@@ -1,8 +1,8 @@
+import Docxtemplater from "docxtemplater";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import PizZip from "pizzip";
-import Docxtemplater from "docxtemplater";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const TEMPLATES_DIR = path.resolve(__dirname, "..", "templates");
@@ -20,7 +20,10 @@ function resolveTemplatePath(templateName) {
   const safeName = path.basename(templateName, ".docx");
   const resolved = path.join(TEMPLATES_DIR, `${safeName}.docx`);
   if (path.dirname(resolved) !== TEMPLATES_DIR) {
-    throw new TemplateError("INVALID_TEMPLATE_NAME", `Invalid template name: ${templateName}`);
+    throw new TemplateError(
+      "INVALID_TEMPLATE_NAME",
+      `Invalid template name: ${templateName}`,
+    );
   }
   return resolved;
 }
@@ -33,15 +36,23 @@ export function render(templateName, data) {
     content = fs.readFileSync(templatePath);
   } catch (err) {
     if (err.code === "ENOENT") {
-      throw new TemplateError("TEMPLATE_NOT_FOUND", `Template not found: ${templateName}`);
+      throw new TemplateError(
+        "TEMPLATE_NOT_FOUND",
+        `Template not found: ${templateName}`,
+      );
     }
-    throw new TemplateError("TEMPLATE_READ_FAILED", `Failed to read template: ${templateName}`, err);
+    throw new TemplateError(
+      "TEMPLATE_READ_FAILED",
+      `Failed to read template: ${templateName}`,
+      err,
+    );
   }
 
   const zip = new PizZip(content);
   const doc = new Docxtemplater(zip, {
     paragraphLoop: true,
     linebreaks: true,
+    parser: dotNotationParser,
   });
 
   try {
@@ -51,6 +62,18 @@ export function render(templateName, data) {
   }
 
   return doc.getZip().generate({ type: "nodebuffer", compression: "DEFLATE" });
+}
+
+function dotNotationParser(tag) {
+  return {
+    get(scope) {
+      if (tag === ".") return scope;
+      return tag
+        .trim()
+        .split(".")
+        .reduce((acc, key) => (acc == null ? acc : acc[key.trim()]), scope);
+    },
+  };
 }
 
 function buildRenderErrorMessage(err) {
