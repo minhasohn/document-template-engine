@@ -5,32 +5,34 @@ import { render, TemplateError } from "./renderer.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "..");
-const MOCKS_PATH = path.join(PROJECT_ROOT, "mocks", "response.json");
+const MOCKS_DIR = path.join(PROJECT_ROOT, "mocks");
 const OUTPUT_DIR = path.join(PROJECT_ROOT, "output");
 
 function printUsageAndExit() {
   process.stderr.write(
     [
-      "Usage: node src/generate.js <템플릿파일명>",
+      "Usage: npm run generate -- <템플릿이름>",
       "",
-      "  <템플릿파일명>   templates/ 폴더 안의 DOCX 파일 (확장자 생략 가능)",
+      "  <템플릿이름>   templates/ 폴더의 DOCX 파일 (확장자 생략 가능)",
+      "                 동일한 이름의 JSON 파일이 mocks/ 폴더에 있어야 함",
       "",
       "예시:",
-      "  node src/generate.js 이력서.docx",
-      "  node src/generate.js 이력서",
+      "  npm run generate -- 이력서",
+      "  npm run generate -- 취업이력서",
       "",
-    ].join("\n")
+    ].join("\n"),
   );
   process.exit(1);
 }
 
-function loadResponse() {
+function loadResponseValue(templateName) {
+  const mockPath = path.join(MOCKS_DIR, `${templateName}.json`);
   let raw;
   try {
-    raw = fs.readFileSync(MOCKS_PATH, "utf8");
+    raw = fs.readFileSync(mockPath, "utf8");
   } catch (err) {
     if (err.code === "ENOENT") {
-      throw new Error(`Mock JSON 파일을 찾을 수 없습니다: ${MOCKS_PATH}`);
+      throw new Error(`Mock JSON 파일을 찾을 수 없습니다: mocks/${templateName}.json`);
     }
     throw err;
   }
@@ -39,7 +41,7 @@ function loadResponse() {
   try {
     parsed = JSON.parse(raw);
   } catch (err) {
-    throw new Error(`Mock JSON 파싱 실패 (${MOCKS_PATH}): ${err.message}`);
+    throw new Error(`Mock JSON 파싱 실패 (mocks/${templateName}.json): ${err.message}`);
   }
 
   if (!parsed || typeof parsed !== "object" || parsed.value === undefined) {
@@ -48,13 +50,11 @@ function loadResponse() {
   return parsed.value;
 }
 
-function buildOutputPath(templateName) {
-  const baseName = path.basename(templateName, ".docx");
-  const candidate = path.join(OUTPUT_DIR, `${baseName}-rendered.docx`);
+function buildOutputPath(baseName) {
+  const candidate = path.join(OUTPUT_DIR, `${baseName}-output.docx`);
   if (!fs.existsSync(candidate)) return candidate;
-
   for (let i = 1; ; i++) {
-    const next = path.join(OUTPUT_DIR, `${baseName}-rendered-${i}.docx`);
+    const next = path.join(OUTPUT_DIR, `${baseName}-output-${i}.docx`);
     if (!fs.existsSync(next)) return next;
   }
 }
@@ -63,11 +63,12 @@ function main() {
   const [, , templateArg] = process.argv;
   if (!templateArg) printUsageAndExit();
 
-  const data = loadResponse();
-  const buffer = render(templateArg, data);
+  const templateName = path.basename(templateArg, ".docx");
+  const data = loadResponseValue(templateName);
+  const buffer = render(templateName, data);
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  const outputPath = buildOutputPath(templateArg);
+  const outputPath = buildOutputPath(templateName);
   fs.writeFileSync(outputPath, buffer);
 
   process.stdout.write(`완료: ${path.relative(PROJECT_ROOT, outputPath)}\n`);

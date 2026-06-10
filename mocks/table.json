@@ -1,0 +1,176 @@
+{
+  "id": "c4e1a0c1-bb93-4af7-ac1e-8c0a33d5f9de",
+  "schemaId": "240e82b5-d371-4939-ad9e-a3a410364fde",
+  "documentId": "a3775eff-bdc9-41a5-8244-2936f79770e9",
+  "value": {
+    "인적사항": {
+      "성명": "홍길동",
+      "주소": "서울특별시 영등포구 호산동",
+      "연락처": "010-1234-5678",
+      "이메일": "gildong@gmail.com",
+      "생년월일": "1999-03-04"
+    },
+    "학력사항": [
+      {
+        "재학기간": "2016-03-01 ~ 2019-02-28",
+        "학교": "미리고등학교",
+        "전공": "인문계"
+      },
+      {
+        "재학기간": "2019-03-01 ~ 2021-02-28",
+        "학교": "미리대학교",
+        "전공": "식품위생학과"
+      }
+    ]
+  },
+  "confidence": {
+    "인적사항": 1,
+    "학력사항": 1
+  },
+  "references": null,
+  "createdAt": "2026-06-10T06:34:24.037Z",
+  "updatedAt": "2026-06-10T06:34:24.037Z",
+  "deletedAt": null,
+  "schema": {
+    "id": "240e82b5-d371-4939-ad9e-a3a410364fde",
+    "name": "이력서",
+    "description": "",
+    "schema": {
+      "인적사항": {
+        "type": "Object",
+        "properties": {
+          "성명": {
+            "type": "String",
+            "description": "문서에 작성된 성명 또는 이름을 의미한다."
+          },
+          "주소": {
+            "type": "String",
+            "description": "문서에 작성된 인물의 주소를 의미한다.\n"
+          },
+          "연락처": {
+            "type": "String",
+            "description": "문서에 작성된 인물의 전화번호를 의미하며, 형식은 000-0000-0000로 한다."
+          },
+          "이메일": {
+            "type": "String",
+            "description": "문서에 작성된 인물의 이메일을 의미한다."
+          },
+          "생년월일": {
+            "type": "String",
+            "description": "문서에 작성된 인물의 생년월일을 의미하며, 형식은 yyyy-mm-dd로 한다."
+          }
+        },
+        "description": "이력서 내 인적사항을 의미한다."
+      },
+      "학력사항": {
+        "type": "Array",
+        "items": {
+          "type": "Object",
+          "properties": {
+            "재학기간": {
+              "type": "String",
+              "description": "문서에 작성한 인물이 재학한 기간을 의미한다.\n형식은 yyyy-mm-dd ~ yyyy-mm-dd 로 한다."
+            },
+            "학교": {
+              "type": "String",
+              "description": "문서에 작성한 인물이 재학한 학교명을 의미한다."
+            },
+            "전공": {
+              "type": "String",
+              "description": "문서에 작성한 인물의 전공을 의미한다."
+            }
+          },
+          "description": "학력사항의 세부 내용을 의미한다."
+        },
+        "description": "문서에 작성한 학력사항을 의미한다."
+      }
+    },
+    "createdAt": "2026-03-28T09:51:38.378Z",
+    "updatedAt": "2026-04-03T00:45:37.937Z",
+    "deletedAt": null,
+    "workspaceId": "79cfdd99-3905-4577-b01d-f7993f420451"
+  },
+  "document": {
+    "id": "a3775eff-bdc9-41a5-8244-2936f79770e9",
+    "name": "80-취업이력서-양식-워드2.docx",
+    "title": null,
+    "result": {
+      "pages": {
+        "1": {
+          "size": {
+            "width": 1240.5,
+            "height": 1754,
+            "dpi_scale_factor": 2
+          },
+          "image": null,
+          "page_no": 1
+        }
+      },
+      "stages": {
+        "parsed": true,
+        "embedded": true,
+        "uploaded": true,
+        "converted": true,
+        "summarized": true
+      },
+      "status": "SUCCESS",
+      "figures": [],
+      "results": [
+        {
+          "id": "68bdb22b-37b2-4e0b-8a29-6381a0720f8b",
+          "prov": [
+            {
+              "bbox": {
+                "b": 152.1545366311155,
+                "l": 367.5959932203497,
+                "r": 819.6526846218762,
+                "t": 84.47696671001995,
+                "coord_origin": "TOPLEFT"
+              },
+              "page_no": 1,
+              "charspan": []
+            }
+          ],
+          "type": "doc_title",
+          "markdown": "<div style=\"text-align: center;\">아르바이트 지원서</div>"
+        },
+        {
+          "id": "17a2d152-eac5-4fe9-945a-b375929fcbb7",
+          "prov": [
+            {
+              "bbox": {
+                "b": 1173.55786139772,
+                "l": 114.6937890073937,
+                "r": 1073.514669495982,
+                "t": 172.7937955432226,
+                "coord_origin": "TOPLEFT"
+              },
+              "page_no": 1,
+              "charspan": []
+            }
+          ],
+          "type": "table",
+          "markdown": "<table border=1 style='margin: auto; word-wrap: break-word;'><tr><td style='text-align: center; word-wrap: break-word;'>성  명</td><td colspan=\"2\">홍길동</td><td rowspan=\"5\">사진 (최근 6개월 이내)</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>생 년 월 일</td><td colspan=\"2\">1999.03.04 (만 28 세)</td></tr><tr><td rowspan=\"2\">연락처(핸드폰) e-mail</td><td style='text-align: center; word-wrap: break-word;'>개인연락망</td><td style='text-align: center; word-wrap: break-word;'>e-mail</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>010-1234-5678</td><td style='text-align: center; word-wrap: break-word;'>gildong@gmail.com</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>현 주 소</td><td colspan=\"2\">서울특별시 영등포구 호산동</td></tr><tr><td rowspan=\"4\">학 력 사 항</td><td style='text-align: center; word-wrap: break-word;'>학교명</td><td style='text-align: center; word-wrap: break-word;'>기간</td><td style='text-align: center; word-wrap: break-word;'>전공</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>미리고등학교</td><td style='text-align: center; word-wrap: break-word;'>2016년 3월-2019년 2월</td><td style='text-align: center; word-wrap: break-word;'>인문계 졸업</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>미리대학교</td><td style='text-align: center; word-wrap: break-word;'>2019년 3월-2021년 2월</td><td style='text-align: center; word-wrap: break-word;'>식품위생학과 학사 졸업</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr><tr><td rowspan=\"4\">아르바이트 경력사항</td><td style='text-align: center; word-wrap: break-word;'>직장명</td><td style='text-align: center; word-wrap: break-word;'>기간</td><td style='text-align: center; word-wrap: break-word;'>주요업무</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>A 식품</td><td style='text-align: center; word-wrap: break-word;'>2021년 3월-2022년 10월</td><td style='text-align: center; word-wrap: break-word;'>식품 포장 및 검수</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr><tr><td rowspan=\"3\">자 격 증</td><td style='text-align: center; word-wrap: break-word;'>발급일자</td><td style='text-align: center; word-wrap: break-word;'>자격증명</td><td style='text-align: center; word-wrap: break-word;'>등급</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>2020년 4월</td><td style='text-align: center; word-wrap: break-word;'>영어 회화 능력 우수</td><td style='text-align: center; word-wrap: break-word;'>TOEIC 850 점</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td><td style='text-align: center; word-wrap: break-word;'></td></tr><tr><td style='text-align: center; word-wrap: break-word;'>지 원 동 기</td><td colspan=\"3\">식품은 사람들의 건강과 일상에 가장 가까이 있는 산업이라고 생각합니다. 귀사는 품질과 안전을 바탕으로 고객에게 신뢰를 제공하며 지속적으로 성장하고 있어 큰 매력을 느꼈습니다. 저는 맡은 업무를 책임감 있게 수행하며 문제를 개선해 나가는 데 강점이 있습니다. 이러한 역량을 바탕으로 고객 만족과 기업 성장에 기여하고 싶습니다. 끊임없이 배우고 발전하는 자세로 회사와 함께 성장하는 구성원이 되겠습니다.</td></tr><tr><td rowspan=\"2\">희망 근무 시간</td><td colspan=\"3\">근무요일 : 평일(월~금)</td></tr><tr><td colspan=\"3\">근무시간 : 07:00 ~ 18:00</td></tr></table>"
+        }
+      ],
+      "summary": "This document is a part-time job application form for Hong Gil-dong, a 28-year-old graduate of Miri University's Food Hygiene major. The applicant possesses relevant work experience in food packaging and inspection at A Food and holds a TOEIC score of 850, demonstrating strong English proficiency. In their motivation statement, they express a desire to contribute to the company's growth by leveraging their sense of responsibility and commitment to quality. Finally, the applicant indicates a preference for weekday shifts from 7:00 AM to 6:00 PM.",
+      "page_count": 1,
+      "rag_status": "SUCCESS",
+      "document_id": "a3775eff-bdc9-41a5-8244-2936f79770e9",
+      "blocs_indexed": 17,
+      "document_type": "employment contract",
+      "classification": null,
+      "execution_time": 2.701,
+      "conversion_status": "SUCCESS"
+    },
+    "createdAt": "2026-06-10T06:33:28.899Z",
+    "updatedAt": "2026-06-10T06:33:34.122Z",
+    "deletedAt": null,
+    "status": "SUCCESS",
+    "userId": "014c5308-2e03-43e2-a2aa-332abaa434ae",
+    "isDeleted": false,
+    "originalname": null,
+    "metadata": {},
+    "projectId": "47a604ac-1182-43f7-8630-458f119c4c53"
+  }
+}
