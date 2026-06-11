@@ -5,24 +5,27 @@ DOCX 템플릿에 JSON 응답의 값을 채워 넣어 완성된 DOCX 파일을 �
 ## 동작 흐름
 
 ```
-templates/<템플릿>.docx  +  mocks/response.json  ──▶  output/<템플릿>-rendered.docx
+templates/<이름>.docx  +  mocks/<이름>.json  ──▶  output/<이름>-output.docx
 ```
 
-- `templates/` 안의 DOCX 파일을 읽음
-- `mocks/response.json`의 `value` 객체를 추출하여 템플릿 필드에 치환
-- 결과는 `output/` 폴더에 저장
+- 템플릿 이름과 mock JSON 이름이 **동일**해야 함 (컨벤션 기반 매칭)
+- JSON의 `value` 객체를 추출하여 템플릿 필드에 치환
+- 결과는 `output/` 폴더에 저장 (같은 이름 존재 시 `-1`, `-2` 자동 부여)
 
 ## 폴더 구조
 
 ```
 .
 ├── src/
-│   ├── renderer.js     # DOCX 렌더링 로직 (docxtemplater)
-│   └── generate.js     # CLI 엔트리
-├── templates/          # 입력 DOCX 템플릿 보관
-├── mocks/
-│   └── response.json   # 더미 API 응답
-└── output/             # 생성된 DOCX
+│   ├── renderer.js       # DOCX 렌더링 로직 (docxtemplater)
+│   └── generate.js       # CLI 엔트리
+├── templates/            # 입력 DOCX 템플릿 보관
+│   ├── 이력서.docx
+│   └── 취업이력서.docx
+├── mocks/                # 더미 API 응답 (템플릿 이름과 1:1)
+│   ├── 이력서.json
+│   └── 취업이력서.json
+└── output/               # 생성된 DOCX
 ```
 
 ## 설치
@@ -33,20 +36,23 @@ npm install
 
 ## 사용법
 
-`templates/` 폴더에 DOCX 템플릿을 넣은 뒤 실행합니다.
+`templates/<이름>.docx` 와 `mocks/<이름>.json` 을 준비한 뒤 실행합니다.
 
 ```bash
-# 예: templates/이력서.docx 를 렌더링
-npm run generate -- 이력서.docx
-
-# 확장자 생략 가능
+# templates/이력서.docx + mocks/이력서.json
 npm run generate -- 이력서
+
+# templates/취업이력서.docx + mocks/취업이력서.json
+npm run generate -- 취업이력서
+
+# 확장자 .docx 를 붙여도 동일하게 동작
+npm run generate -- 이력서.docx
 
 # 직접 실행
 node src/generate.js 이력서
 ```
 
-결과는 `output/<템플릿이름>-rendered.docx` 로 저장됩니다.
+결과는 `output/<이름>-output.docx` 로 저장되며, 이미 존재하면 `-1`, `-2` ... 형태로 자동 번호가 붙습니다.
 
 ## 템플릿 작성 규약
 
@@ -54,7 +60,7 @@ DOCX 본문에 아래 형식의 플레이스홀더를 넣으면 됩니다.
 
 ### 단일 값 — 점 표기
 
-`mocks/response.json` 의 `value` 구조:
+`mocks/<이름>.json` 의 `value` 구조:
 
 ```json
 {
