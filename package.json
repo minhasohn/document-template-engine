@@ -5,10 +5,12 @@
   "main": "src/generate.js",
   "type": "module",
   "scripts": {
-    "generate": "node src/generate.js"
+    "generate": "node src/generate.js",
+    "html": "node scripts/docx-to-html.js"
   },
   "dependencies": {
     "docxtemplater": "^3.50.0",
+    "mammoth": "^1.12.0",
     "pizzip": "^3.1.7"
   }
 }
